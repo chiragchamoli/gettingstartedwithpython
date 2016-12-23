@@ -1,0 +1,930 @@
+<!doctype html>
+<html><head><title>Python Fundamentals</title><meta charset="UTF-8"><link href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic" rel="stylesheet" type="text/css"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: #fff;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1, h2, h3, th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+/* Body text */
+body, p, ul, ol, td {
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote, q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a, q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code, pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web", Courier, monospace;
+    background: #f3f3f3;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #7c7c7c;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    table-layout: fixed;
+    position: relative;
+}
+
+table th, table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #ccc;
+    background: #f0f0f0;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+</style></head><body><h1 id='QUNACARI8Iu'>Python Fundamentals</h1>
+
+<br/>
+
+<br/>
+
+<h2 id='QUNACAGebzy'>Setup </h2>
+
+<h3 id='QUNACAtePq1'>On and with Python 2.7</h3>
+
+<pre id='QUNACAZUAEz'>  sudo apt-get update<br>  sudo apt-get upgrade<br>  sudo apt-get install git<br>  sudo apt-get install python-setuptools <br>  sudo apt-get install python-dev<br>  sudo apt-get install libpq-dev<br>  sudo apt-get install uwsgi<br>  sudo apt-get install python-pip<br>  wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py<br>  sudo python ez_setup.py --insecure<br>  sudo pip install virtualenvwrapper<br>  sudo pip install virtualenv</pre>
+
+<h3 id='QUNACAK1mtI'>Virtual Env</h3>
+
+<pre id='QUNACAy5zC7'># installing virtualenv<br><br>pip install virtualenv<br><br># new virtualenv setup<br>cd project_name<br>virtualenv project_name<br># To begin using the virtual environment, it needs to be activated:<br>source venv/bin/activate<br># close th env<br>deactivate<br><br># Running virtualenv with the option --no-site-packages<br>pip freeze &gt; requirements.txt<br>pip install -r requirements.txt<br><br># for cusious people <br><br>#explore virtualenvwrapper</pre>
+
+<br/>
+
+<br/>
+
+<h2 id='QUNACAKm6sq'>Data types and Type casting </h2>
+
+<blockquote id='QUNACA5id37'>Built-in types, cast to other type</blockquote>
+
+<br/>
+
+Python has five standard data types −<br/>
+
+<div data-section-style='5'><ul id='QUNACApuAYt'><li id='QUNACAkmJdz' class='' value='1'>Numbers
+
+<br/></li><li id='QUNACA3QVQx' class=''>String
+
+<br/></li><li id='QUNACApamdK' class=''>List
+
+<br/></li><li id='QUNACAIXK00' class=''>Tuple
+
+<br/></li><li id='QUNACAbjFcV' class=''>Dictionary
+
+<br/></li></ul></div><h3 id='QUNACArGP7b'>Numbers</h3>
+
+Python supports four different numerical types - <br/>
+
+<div data-section-style='5'><ul id='QUNACAMzQg8'><li id='QUNACAqK2H4' class='' value='1'>int (signed integers)
+
+<br/></li><li id='QUNACABh50u' class=''>long (long integers, they can also be represented in octal and hexadecimal)
+
+<br/></li><li id='QUNACAiCl3R' class=''>float (floating point real values)
+
+<br/></li><li id='QUNACAWLMM4' class=''>complex (complex numbers)
+
+<br/></li></ul></div>Example: <br/>
+
+<div data-section-style='13'><table id='QUNACAMh5C3' title='Sheet3' style='width: 24em;'><thead><tr><th id='QUNACAECG4E'  style='width: 6em'>int
+
+<br/></th><th id='QUNACADeEXg'  style='width: 6em'>long
+
+<br/></th><th id='QUNACAJLgK2'  style='width: 6em'>float
+
+<br/></th><th id='QUNACA0sGDc'  style='width: 6em'>complex
+
+<br/></th></tr></thead><tbody><tr id='QUNACAVdbTW'><td id='QUNACAWERnF' style=''>10
+
+<br/></td><td id='QUNACA10gVh' style=''>51924361L
+
+<br/></td><td id='QUNACAjN8X2' style=''>0
+
+<br/></td><td id='QUNACAeZTJt' style=''>3.14j
+
+<br/></td></tr><tr id='QUNACAm4KJG'><td id='QUNACAg9BeE' style=''>100
+
+<br/></td><td id='QUNACAGHRDk' style=''>-0x19323L
+
+<br/></td><td id='QUNACA8bIIh' style=''>15.2
+
+<br/></td><td id='QUNACAMnA7a' style=''>45.j
+
+<br/></td></tr><tr id='QUNACA1Kpfp'><td id='QUNACAUveGI' style=''>-786
+
+<br/></td><td id='QUNACAlMyG1' style=''>0122L
+
+<br/></td><td id='QUNACAMf4c2' style=''>-21.9
+
+<br/></td><td id='QUNACAWqqYg' style=''>9.322e-36j
+
+<br/></td></tr><tr id='QUNACAKNim7'><td id='QUNACAmFcGG' style=''>80
+
+<br/></td><td id='QUNACAzUtBj' style=''>0xDEFABCECBDAECBFBAEl
+
+<br/></td><td id='QUNACAlf9VF' style=''>32.3+e18
+
+<br/></td><td id='QUNACAnUAhL' style=''>.876j
+
+<br/></td></tr><tr id='QUNACAWnMRT'><td id='QUNACAVPqYG' style=''>-490
+
+<br/></td><td id='QUNACA9O17d' style=''>535633629843L
+
+<br/></td><td id='QUNACAM4T6L' style=''>-90
+
+<br/></td><td id='QUNACAdmg6t' style=''>-.6545+0J
+
+<br/></td></tr><tr id='QUNACAJwv5h'><td id='QUNACAW7RDy' style=''>-0x260
+
+<br/></td><td id='QUNACAuqPsK' style=''>-052318172735L
+
+<br/></td><td id='QUNACAK3VUp' style=''>-3.25E+101
+
+<br/></td><td id='QUNACA1k4uX' style=''>3e+26J
+
+<br/></td></tr><tr id='QUNACAr5ZoX'><td id='QUNACAKshKZ' style=''>0x69
+
+<br/></td><td id='QUNACAgSpKU' style=''>-4721885298529L
+
+<br/></td><td id='QUNACAcXCvc' style=''>70.2-E12
+
+<br/></td><td id='QUNACAitmHS' style=''>4.53e-7j
+
+<br/></td></tr></tbody></table></div> <br> <br/>
+
+<u>Notes</u>:<br/>
+
+<div data-section-style='5'><ul id='QUNACA6FS5b'><li id='QUNACAJ8Lua' class='' value='1'>Python allows you to use a lowercase l with long, but it is recommended that you use only an uppercase L to avoid confusion with the number 1. Python displays long integers with an uppercase L.
+
+<br/></li><li id='QUNACAnSdIO' class=''>A complex number consists of an ordered pair of real floating-point numbers denoted by x + yj, where x and y are the real numbers and j is the imaginary unit.
+
+<br/></li></ul></div><h3 id='QUNACAIWOvx'>Strings</h3>
+
+Python allows for either pairs of single or double quotes. Subsets of strings can be taken using the slice operator ([ ] and [:] ) with indexes starting at 0 in the beginning of the string and working their way from -1 at the end.<br/>
+
+<br/>
+
+The plus (+) sign is the string concatenation operator and the asterisk (*) is the repetition operator.<br/>
+
+<br/>
+
+Example:<br/>
+
+<pre id='QUNACA1LFWZ'>str = 'Hello World!'<br><br>print str          # Prints complete string (Hello World!)<br>print str[0]       # Prints first character of the string (H)<br>print str[2:5]     # Prints characters starting from 3rd to 5th (llo)<br>print str[2:]      # Prints string starting from 3rd character (llo World!)<br>print str * 2      # Prints string two times (Hello World!Hello World!)<br>print str + "TEST" # Prints concatenated string (Hello World!TEST)</pre>
+
+<h3 id='QUNACAYXVMy'>Type casting</h3>
+
+You can check type of a variable using <b>type(var</b>) function.<br/>
+
+Example:<br/>
+
+<pre id='QUNACAVDvdU'><code>i = 123<br>print type(i)           # &lt;type 'int'&gt;<br>print type(i) is int    # True<br><br>i = 123456789L<br><code>print type(i)           # &lt;type 'long'&gt;<br>print type(i) is long   # True<br><br>i = 123.456<br><code><code>print type(i)           # &lt;type 'float'&gt;<br>print type(i) is float  # True<br></code></code><br></code><br></code></pre>
+
+There are several built-in functions to perform conversion from one data type to another. These functions return a new object representing the converted value.<br/>
+
+<div data-section-style='13'><table id='QUNACA8mkuW' title='Sheet4' style='width: 39.3333em;'><thead><tr><th id='QUNACAp3icZ'  style='width: 10.1333em'>Function
+
+<br/></th><th id='QUNACA3IF1B'  style='width: 29.2em'>Description
+
+<br/></th></tr></thead><tbody><tr id='QUNACA7pwuu'><td id='QUNACAk6DZT' style=''>int(x [,base])
+
+<br/></td><td id='QUNACAwsRuM' style=''>Converts x to an integer. base specifies the base if x is a string.
+
+<br/></td></tr><tr id='QUNACAzSbvW'><td id='QUNACARrBfa' style=''>long(x [,base] )
+
+<br/></td><td id='QUNACA4om6B' style=''>Converts x to a long integer. base specifies the base if x is a string.
+
+<br/></td></tr><tr id='QUNACAtAVYS'><td id='QUNACALp5oO' style=''>float(x)
+
+<br/></td><td id='QUNACAXp8DV' style=''>Converts x to a floating-point number.
+
+<br/></td></tr><tr id='QUNACAxd5Zp'><td id='QUNACAz109U' style=''>complex(real [,imag])
+
+<br/></td><td id='QUNACAb9erM' style=''>Creates a complex number.
+
+<br/></td></tr><tr id='QUNACAT1wJe'><td id='QUNACAFmjWK' style=''>str(x)
+
+<br/></td><td id='QUNACAx0n35' style=''>Converts object x to a string representation.
+
+<br/></td></tr><tr id='QUNACAnnkKt'><td id='QUNACAEcz2e' style=''>repr(x)
+
+<br/></td><td id='QUNACA0QXTc' style=''>Converts object x to an expression string.
+
+<br/></td></tr><tr id='QUNACAtFS4W'><td id='QUNACAknZhJ' style=''>eval(str)
+
+<br/></td><td id='QUNACAoE7Gb' style=''>Evaluates a string and returns an object.
+
+<br/></td></tr><tr id='QUNACArISnZ'><td id='QUNACAnHKfB' style=''>tuple(s)
+
+<br/></td><td id='QUNACAX9f7c' style=''>Converts s to a tuple.
+
+<br/></td></tr><tr id='QUNACAscStN'><td id='QUNACAUiqiW' style=''>list(s)
+
+<br/></td><td id='QUNACAjpcQh' style=''>Converts s to a list.
+
+<br/></td></tr><tr id='QUNACAI5f4H'><td id='QUNACAZ8USX' style=''>set(s)
+
+<br/></td><td id='QUNACAEiFMz' style=''>Converts s to a set.
+
+<br/></td></tr><tr id='QUNACACLDIy'><td id='QUNACAI43Hw' style=''>dict(d)
+
+<br/></td><td id='QUNACA07sR8' style=''>Creates a dictionary. d must be a sequence of (key,value) tuples.
+
+<br/></td></tr><tr id='QUNACAiYGjw'><td id='QUNACAkLqRM' style=''>frozenset(s)
+
+<br/></td><td id='QUNACAe8rPo' style=''>Converts s to a frozen set.
+
+<br/></td></tr><tr id='QUNACAftq2T'><td id='QUNACAEBN5d' style=''>chr(x)
+
+<br/></td><td id='QUNACAfoqFU' style=''>Converts an integer to a character.
+
+<br/></td></tr><tr id='QUNACAcRlL1'><td id='QUNACAm2FoL' style=''>unichr(x)
+
+<br/></td><td id='QUNACA3NNoa' style=''>Converts an integer to a Unicode character.
+
+<br/></td></tr><tr id='QUNACALVdXC'><td id='QUNACAxuLdV' style=''>ord(x)
+
+<br/></td><td id='QUNACAxWDIG' style=''>Converts a single character to its integer value.
+
+<br/></td></tr><tr id='QUNACADP8ue'><td id='QUNACAlYo6m' style=''>hex(x)
+
+<br/></td><td id='QUNACAhXMox' style=''>Converts an integer to a hexadecimal string.
+
+<br/></td></tr><tr id='QUNACAocRGb'><td id='QUNACAskEOg' style=''>oct(x)
+
+<br/></td><td id='QUNACAbXNQJ' style=''>Converts an integer to an octal string.
+
+<br/></td></tr></tbody></table></div><br/>
+
+<h2 id='QUNACA5aZkQ'></h2>
+
+<br/>
+
+<br/>
+
+<h2 id='QUNACA8dOkC'><b>Control Flows  </b></h2>
+
+<pre id='QUNACA2rRXF'><i>If, While, For, Break, and Continue </i></pre>
+
+<h3 id='QUNACAuw8ST'>The if statement :</h3>
+
+The <b>if statement</b> is used to check a condition: if the condition is true, we run a block of statements (called the if-block), else we process another block of statements (called the else-block). The else clause is optional.<br/>
+
+<br/>
+
+<b><u>Example</u></b> : <br/>
+
+<pre id='QUNACAm2sV8'>number = 23<br><br>// Take input from user<br>guess = int(input('Enter an integer : '))<br><br>if guess == number:<br>    # New block starts here<br>    print('Congratulations, you guessed it.')<br>    print('(but you do not win any prizes!)')<br>    # New block ends here<br>elif guess &lt; number:<br>    # Another block<br>    print('No, it is a little higher than that')<br>    # You can do whatever you want in a block<br>else:<br>    # Block Will be executed if none of above block condition satisfied<br>    print('No, it is a little lower than that')<br>    # you must have guessed &gt; number to reach here<br><br>print('Done')<br># This last statement is always executed,<br># after the if statement is executed.</pre>
+
+<h3 id='QUNACAi7K2y'><b>The while Statement:</b></h3>
+
+The while statement allows you to repeatedly execute a block of statements as long as a condition is true. A while statement is an example of what is called a looping statement. A while statement can have an optional else clause.<br/>
+
+<br/>
+
+<b>Example :</b><br/>
+
+<pre id='QUNACAyQSJk'>number = 23<br>running = True<br><br>while running:<br>    guess = int(input('Enter an integer : '))<br>    # The if loop execution is already explained above<br>    if guess == number:<br>        print('Congratulations, you guessed it.')<br>        # this causes the while loop to stop<br>        running = False<br>    elif guess &lt; number:<br>        print('No, it is a little higher than that.')<br>    else:<br>        print('No, it is a little lower than that.')<br>else:<br>    print('The while loop is over.')<br>    # Do anything else you want to do here<br><br><br># Will get executed once user guessed the number correctly<br>print('Done')</pre>
+
+<h3 id='QUNACATy6py'><b>The for loop :</b></h3>
+
+The for..in statement is another looping statement which iterates over a sequence of objects i.e. go through each item in a sequence and here, the sequence is just an ordered collection of items.<br/>
+
+<br/>
+
+<b>Example :</b><br/>
+
+<pre id='QUNACA0mcZc'>for i in range(1, 5):<br>    print(i)<br>else:<br>    print('The for loop is over')<br>---------------------------------<br>Expected Output : <br>1<br>2<br>3<br>4<br>The for loop is over</pre>
+
+<pre id='QUNACARVdLr'><b>NOTE :<br>In this program, we are printing a sequence of numbers. We generate this <br>sequence of numbers using the built-in range function. What we do here is <br>supply it two numbers and range returns a sequence of numbers starting from <br>the first number and up to the second number. For example, range(1,5) <br>gives the sequence [1, 2, 3, 4]. The else part is optional. When included, <br>it is always executed once after the for loop is over unless a break statement<br> is encountered.</b></pre>
+
+<h3 id='QUNACAM55Lx'><b>The break Statement :</b></h3>
+
+The break statement is used to break out of a loop statement i.e. stop the execution of a looping statement, even if the loop condition has not become False or the sequence of items has not been completely iterated over.<br/>
+
+<br/>
+
+<b>Example</b><br/>
+
+<pre id='QUNACAUzGI3'>while True:<br>    user_input = input('Enter something : ')<br>    if user_input == 'quit':<br>        break<br>    print('Length of the string is', len(s))<br>print('Done')<br><br>#If user_input is “quit”,then the last print statement “Done” will only get <br>executed.</pre>
+
+<h3 id='QUNACAAzgU5'><b>The continue Statement :</b></h3>
+
+The continue statement is used to tell Python to skip the rest of the statements in the current loop block and to continue to the next iteration of the loop.<br/>
+
+<br/>
+
+<b>Example</b><br/>
+
+<pre id='QUNACA8DUH1'>while True:<br>    user_input = input('Enter something : ')<br>    if user_input == 'quit':<br>        break<br>    if len(s) &lt; 3:<br>        print('Too small')<br>        continue<br>    print('Input is of sufficient length')<br>    # Do other kinds of processing here<br>print “quit entered by user”</pre>
+
+<pre id='QUNACAHW3ER'><b>NOTE<br>we use the built-in len function to get the length of the string being passed <br>by the user. So, a user is giving input less than length of 3, the statement <br>“Input is of sufficient length” will not be printed. If user_input is “quit”,<br>then the statement “quit entered by user” will only get executed.</b></pre>
+
+<br/>
+
+<h2 id='QUNACAQvAqh'>Lists and Dictionaries <control data-remapped="true" id="QUNACABm45W">Himan</control> </h2>
+
+<blockquote id='QUNACArsM4k'>Lists, Common methods, dictionaries, tuples</blockquote>
+
+<h3 id='QUNACA17wdz'>Lists</h3>
+
+<i>Lists </i>are sequences of arbitrary objects.You create a list by enclosing values in square brackets, as follows: <br/>
+
+<br/>
+
+<code>names = [ "Dave", "Mark", "Ann", "Phil" ] </code> <br/>
+
+<br/>
+
+Like Javascript lists, python lists can have different types of elements in a single list. <br/>
+
+<pre id='QUNACAyPp9L'><code>mixedList = [1, “Hello”, 3.14, {"name": "world"}, [1,2,3]]<br>             0,   1    ,  2  ,        3         ,   4<br>             -5, -4    ,  -3 ,        -2        ,   -1</code></pre>
+
+<br/>
+
+The elements in the lists can be accessed using index starting from 0. <br/>
+
+<pre id='QUNACAyuLq0'><code>&gt;&gt;&gt;&gt; mixedList[0]<br>1</code></pre>
+
+<br/>
+
+Python also supports negative index starting from -1. Let's you'd want to access the last element as follows:<br/>
+
+<pre id='QUNACAyiFo7'>&gt;&gt;&gt;&gt; mixedList[-1]<br>[1,2,3]<br><br>&gt;&gt;&gt;&gt; mixedList[-3]<br>3.14</pre>
+
+Replacing an item in the list can be done using the<br/>
+
+<br/>
+
+Selecting a subset from the list is possible with python. It can be done as follows:<br/>
+
+<pre id='QUNACAXWwUW'>&gt;&gt;&gt;&gt; mixedList[0:3]<br>[1, "Hello", 3.14]<br><br>&gt;&gt;&gt;&gt; mixedList[0:]<br><code>[1, “Hello”, 3.14, {"name": "world"}, [1,2,3]]<br></code><br>&gt;&gt;&gt;&gt; mixedList[2:]<br><code>[3.14, {"name": "world"}, [1,2,3]]<br></code><br>&gt;&gt;&gt;&gt; mixedList[:3]<br>[1, 'Hello', 3.14]<br><br>&gt;&gt;&gt;&gt; mixedList[:-1]<br>[1, 'Hello', 3.14, {'name': 'world'}]<br></pre>
+
+Note that the beginning index is required and the ending index is optional. If not ending index is specified, the python interpreter will print the complete list starting from the given index.<br/>
+
+<br/>
+
+Also note that, the beginning index is inclusive of the list while the ending index is exclusive.<br/>
+
+Which means:<br/>
+
+<pre id='QUNACAhJMLm'>mixedList[0:3]<br>#mixedList[0] is included in the list while mixedList[3] is excluded</pre>
+
+Commonly used python lists methods are as follows:<br/>
+
+<pre id='QUNACA267JM'>list.insert(i, x) #insert an item at a given position<br>list.append(x) #add an item to the end of list<br>list.remove(x) #remove the first item from the list whose value is x<br>list.pop([i]) #remove an item at a given position and return it<br>list.extend(L) #extend the list by appending all the items in the given list<br>list.index(x) #return the index in the list of the first item whose value is x<br>list.count(x) #return the number of times x appears in the list<br>list.sort() #sort the items of the list, in place<br>list.reverse() #reverse the items in the list, in place</pre>
+
+<h3 id='QUNACANtEHu'>Tuples</h3>
+
+<br/>
+
+<h2 id='QUNACAUKfmj'>Functions and Functional Programming </h2>
+
+<blockquote id='QUNACAksNVp'>Functions, scoping rules, closures, and other functional programming features. </blockquote>
+
+<br/>
+
+<br/>
+
+Functions can be<br/>
+
+<div data-section-style='5'><ul id='QUNACArvysD'><li id='QUNACALmzxh' class='' value='1'>Assign functions to variables
+
+<br/></li><li id='QUNACAscLxq' class=''>Define functions inside other functions
+
+<br/></li><li id='QUNACAN1xKU' class=''>Functions can be passed as parameters to other functions
+
+<br/></li><li id='QUNACAEWnN0' class=''>Functions can return other functions
+
+<br/></li></ul></div><br/>
+
+In Python function is defined as following:<br/>
+
+<pre id='QUNACAsFdAm'><br># function definition  <br><br>def add(x,y):<br>    return x + y<br>    <br><br># The order and number of arguments must <br># match those given in the function definition. <br># If a mismatch exists, a TypeError exception is raised.</pre>
+
+<br/>
+
+<pre id='QUNACA7RbYq'>a = 10<br>def foo(x=a):<br>    return x<br><br><br>---<br>a = 5 # Reassign 'a'.<br>foo() # returns 10 (default value not changed)</pre>
+
+<br> <br>Function arguments can also be supplied by explicitly naming each parameter and spec- ifying a value.These are known as <i>keyword arguments</i>. Here is an example: <br/>
+
+<pre id='QUNACAXSHFq'><code>def foo(w,x,y,z): statements </code> <br><code># Keyword argument invocation <br><br>foo(x=3, y=22, w='hello', z=[1,2]) </code> </pre>
+
+<br/>
+
+With keyword arguments, the order of the parameters doesn’t matter. However, unless there are default values, you must explicitly name all of the required function parame- ters. If you omit any of the required parameters or if the name of a keyword doesn’t match any of the parameter names in the function definition, a <code>TypeError </code>exception is raised. Also, since any Python function can be called using the keyword calling style, it is generally a good idea to define functions with descriptive argument names. <br/>
+
+<br/>
+
+Positional arguments and keyword arguments can appear in the same function call, provided that all the positional arguments appear first, values are provided for all non- optional arguments, and no argument value is defined more than once. Here’s an example: <br/>
+
+<pre id='QUNACAhcVAK'>foo('hello', 3, z=[1,2], y=22)<br>foo(3, 22, w='hello', z=[1,2]) # TypeError. Multiple values for w</pre>
+
+<br/>
+
+<br>If the last argument of a function definition begins with <code>**</code>, all the additional keyword arguments (those that don’t match any of the other parameter names) are placed in a dictionary and passed to the function.This can be a useful way to write functions that accept a large number of potentially open-ended configuration options that would be too unwieldy to list as parameters. Here’s an example: <br/>
+
+<pre id='QUNACAF3Qkf'><br><code>def make_table(data, **parms):<br> # Get configuration parameters from parms (a dict) fgcolor = parms.pop("fgcolor","black")<br> bgcolor = parms.pop("bgcolor","white")<br> width = parms.pop("width",None)<br> ...<br> # No more options<br> if parms: </code> <br><code>raise TypeError("Unsupported configuration options %s" % list(parms)) </code> <br><code>make_table(items, fgcolor="black", bgcolor="white", border=1, borderstyle="grooved", cellpadding=10, </code> <br><code>width=400) </code> </pre>
+
+<h3 id='QUNACAzMafP'><br> Parameter Passing and Return Values </h3>
+
+<br/>
+
+When a function is invoked, the function parameters are simply names that refer to the passed input objects.The underlying semantics of parameter passing doesn’t neatly fit into any single style, such as “pass by value” or “pass by reference,” that you might know about from other programming languages. <br/>
+
+<br/>
+
+For example, if you pass an immutable value, the argument effectively looks like it was passed by value. However, if a mutable object (such as a list or dictionary) is passed to a function where it’s then modified, those changes will be reflected in the original object. Here’s an example:<br/>
+
+<br/>
+
+<pre id='QUNACAVrkqz'>a = [1, 2, 3, 4, 5] <br><br>def square(items):<br>    for i,x in enumerate(items):<br>        items[i] = x * x # Modify items in-place<br><br>square(a) # Changes a to [1, 4, 9, 16, 25]</pre>
+
+<br/>
+
+<br/>
+
+Functions that mutate their input values or change the state of other parts of the pro- gram behind the scenes like this are said to have side effects. As a general rule, this is a programming style that is best avoided because such functions can become a source of subtle programming errors as programs grow in size and complexity (for example, it’s not obvious from reading a function call if a function has side effects). Such functions interact poorly with programs involving threads and concurrency because side effects typically need to be protected by locks.<br/>
+
+<br/>
+
+The return statement returns a value from a function. If no value is specified or you omit the return statement, the None object is returned.To return multiple values, place them in a tuple:<br/>
+
+<pre id='QUNACA6Lfzq'>def factor(a): <br>    d=2<br>    while (d &lt;= (a / 2)):<br>        if ((a / d) * d == a):<br>            return ((a / d), d) d=d+1<br>    return (a, 1)</pre>
+
+<br/>
+
+Multiple return values returned in a tuple can be assigned to individual variables:<br/>
+
+<br/>
+
+<blockquote id='QUNACAodvB4'>x, y = factor(1243) # Return values placed in x and y.</blockquote>
+
+<br/>
+
+or<br/>
+
+<blockquote id='QUNACAXM3e1'>(x, y) = factor(1243) # Alternate version. Same behavior.</blockquote>
+
+<br/>
+
+<h3 id='QUNACAXCGHZ'><br> Scoping Rules </h3>
+
+<blockquote id='QUNACAhrd1n'>Each time a function executes, a new local namespace is created. </blockquote>
+
+<br/>
+
+This namespace repre- sents a local environment that contains the names of the function parameters, as well as the names of variables that are assigned inside the function body.When resolving names, the interpreter first searches the local namespace. If no match exists, it searches the glob- al namespace.The global namespace for a function is always the module in which the function was defined. If the interpreter finds no match in the global namespace, it makes a final check in the built-in namespace. If this fails, a NameError exception is raised. One peculiarity of namespaces is the manipulation of global variables within a func- tion. For example, consider the following code:<br/>
+
+<pre id='QUNACAnjfqm'>a = 42 <br>def foo():<br>    a = 13 foo()<br># a is still 42</pre>
+
+<br/>
+
+When variables are assigned inside a function, they’re always bound to the function’s local namespace; as a result, the variable a in the function body refers to an entirely new object containing the value 13, not the outer variable.<br/>
+
+To alter this behavior, use the global statement.global sim- ply declares names as belonging to the global namespace, and it’s necessary only when global variables will be modified.<br/>
+
+<br/>
+
+<pre id='QUNACASg9wj'>a = 42<br>b = 37 <br>def foo():<br>    global a # 'a' is in global namespace<br>    a = 13 <br>    b=0<br><br><br>foo()<br># a is now 13. b is still 37.</pre>
+
+<br/>
+
+Python supports nested function definitions. Here’s an example:<br/>
+
+Variables in nested functions are bound using <i>lexical scoping</i>. <br/>
+
+That is, names are resolved by first checking the local scope and then all enclosing scopes of outer function defini- tions from the innermost scope to the outermost scope. <br/>
+
+<br/>
+
+<pre id='QUNACAWoVRM'><br>def countdown(start): <br>    n = start<br>        def display(): # Nested function definition <br>            print('T-minus %d' % n)<br>        while n &gt; 0: <br>            display()<br>            n -= 1<br>           </pre>
+
+<br>If a local variable is used before it’s assigned a value, an <code>UnboundLocalError </code>exception is raised. <br/>
+
+<br/>
+
+<pre id='QUNACAll8bE'>i=0<br>def foo():<br>    i = i + 1 # Results in UnboundLocalError exception <br>    print(i)</pre>
+
+<br/>
+
+<br/>
+
+ <br> <br> <br> <br/>
+
+<h3 id='QUNACAuifip'>Functions as Objects and Closures </h3>
+
+<blockquote id='QUNACAEs7rP'>Functions are first-class objects in Python. </blockquote>
+
+<br/>
+
+<blockquote id='QUNACAz8qsi'><code>lambda</code> is just a fancy way of saying <code>function</code></blockquote>
+
+<br/>
+
+<blockquote id='QUNACAMVpO7'>Small anonymous functions can be created with the <a href="https://docs.python.org/3.5/reference/expressions.html#lambda"><code><code>lambda</code></code></a> keyword.</blockquote>
+
+<br/>
+
+This means that they can be passed as argu- ments to other functions, placed in data structures, and returned by a function as a result. Here is an example of a function that accepts another function as input and calls it:<br/>
+
+<pre id='QUNACAT8ggX'># foo.py<br>def callf(func):<br>    return func()</pre>
+
+<pre id='QUNACA5RfBM'>Here is an example of using the above function:<br>&gt;&gt;&gt; import foo<br>&gt;&gt;&gt; def helloworld():<br>...     return 'Hello World' ...<br>&gt;&gt;&gt; foo.callf(helloworld) 'Hello World'<br>&gt;&gt;&gt;</pre>
+
+also <br/>
+
+<pre id='QUNACACx6KA'>def filterfunc(x):<br>    return x % 3 == 0<br>mult3 = filter(filterfunc, [1, 2, 3, 4, 5, 6, 7, 8, 9])</pre>
+
+also <br/>
+
+<pre id='QUNACApuYfp'>&gt;&gt;&gt; f = lambda x: x + 1<br>&gt;&gt;&gt; f(3)<br>4</pre>
+
+<br/>
+
+from mozilla <br/>
+
+<pre id='QUNACAUpOId'>plural_rules = [<br>    lambda n: 'all',<br>    lambda n: 'singular' if n == 1 else 'plural',<br>    lambda n: 'singular' if 0 &lt;= n &lt;= 1 else 'plural',<br>    ...<br>]<br># Call plural rule #1 with argument 4 to <br># find out which sentence form to use.<br>plural_rule[1](4) # returns 'plural'</pre>
+
+<br/>
+
+also, <br/>
+
+<pre id='QUNACAMRePz'>&gt;&gt;&gt; pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]<br>&gt;&gt;&gt; pairs.sort(key=lambda pair: pair[1])<br>&gt;&gt;&gt; pairs<br>[(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]</pre>
+
+<br/>
+
+<h3 id='QUNACA8hivP'>Decorators </h3>
+
+A <i>decorator </i>is a function whose primary purpose is to wrap another function or class. The primary purpose of this wrapping is to transparently alter or enhance the behavior of the object being wrapped. Syntactically, decorators are denoted using the special <code>@ </code>symbol as follows: <br/>
+
+<pre id='QUNACAuSmDf'>@trace<br>def square(x):<br>    return x*x</pre>
+
+<blockquote id='QUNACA9OGC2'>This needs a very detailed discussion, just leaving it here. </blockquote>
+
+<br/>
+
+<h3 id='QUNACAjXYob'>Recursion </h3>
+
+Recursive functions are easily defined. For example:<br/>
+
+<pre id='QUNACArVdCV'>def factorial(n):<br>    if n &lt;= 1: return 1<br>    else: return n * factorial(n - 1)<br>    </pre>
+
+<br/>
+
+<h2 id='QUNACAI8QeO'>Classes and Object-Oriented Programming </h2>
+
+<br/>
+
+Classes are the mechanism used to create new kinds of objects.<br/>
+
+<h3 id='QUNACAiGPAK'>The 'class' Statement</h3>
+
+A class defines a set of attributes that are associated with, and shared by, a collection of objects known as instances. A class is most commonly a collection of functions (known as methods), variables (which are known as class variables), and computed attributes (which are known as properties). A class is defined using the class statement.The body of a class contains a series of statements that execute during class definition. Here’s an example:<br/>
+
+<pre id='QUNACANh1GN'>class Account(object): <br>    num_accounts = 0<br>    def __init__(self,name,balance): <br>        self.name = name <br>        self.balance = balance <br>        Account.num_accounts += 1<br>    def __del__(self): <br>        Account.num_accounts -= 1<br>    def deposit(self,amt):<br>        self.balance = self.balance + amt<br>    def withdraw(self,amt):<br>        self.balance = self.balance - amt<br>    def inquiry(self): <br>        return self.balance</pre>
+
+<pre id='QUNACAdXVJ1'><br># now you can access. <br>Account.num_accounts <br>Account.__init__ <br>Account.__del__ <br>Account.deposit <br>Account.withdraw <br>Account.inquiry</pre>
+
+<br/>
+
+<h3 id='QUNACAxt9bM'>Class Instances</h3>
+
+Instances of a class are created by calling a class object as a function.<br/>
+
+This creates a new instance that is then passed to the __init__() method of the class.The arguments to __init__() consist of the newly created instance self along with the arguments sup- plied when calling the class object.<br/>
+
+<pre id='QUNACA7EZMI'># Create a few accounts<br><br>a = Account("Guido", 1000.00) # Invokes Account.__init__(a,"Guido",1000.00)<br>b = Account("Bill", 10.00)</pre>
+
+<br/>
+
+<h3 id='QUNACAFFkvJ'>Scoping Rules</h3>
+
+Although classes define a namespace, classes do not create a scope for names used inside the bodies of methods.Therefore, when you’re implementing a class, references to attributes and methods must be fully qualified. For example, in methods you always ref- erence attributes of the instance through self. Thus, in the example you use self.balance, not balance. This also applies if you want to call a method from another method, as shown in the following example:<br/>
+
+<br/>
+
+<pre id='QUNACAT5jG2'>class Foo(object): <br>    def bar(self):<br>        print("bar!") <br>    def spam(self):<br>        bar(self)# Incorrect! 'bar' generates a NameError # This works<br>        self.bar()<br>        Foo.bar(self) # This also works</pre>
+
+<br/>
+
+<h3 id='QUNACAUUP4s'>Inheritance</h3>
+
+Inheritance is a mechanism for creating a new class that specializes or modifies the behavior of an existing class. The original class is called a base class or a superclass.The new class is called a derived class or a subclass.When a class is created via inheritance, it “inherits” the attributes defined by its base classes. However, a derived class may redefine any of these attributes and add new attributes of its own.<br/>
+
+<pre id='QUNACAk8SQD'>import random<br>class EvilAccount(Account):<br>    def inquiry(self):<br>        if random.randint(0,4) == 1:<br>            return self.balance * 1.10 # Note: Patent pending idea<br>        else:<br>            return self.balance<br>c = EvilAccount("George", 1000.00)<br>c.deposit(10.0) # Calls Account.deposit(c,10.0) <br>available = c.inquiry() # Calls EvilAccount.inquiry(c)</pre>
+
+A subclass can add new attributes to the instances by defining its own version of __init__(). For example, this version of EvilAccount adds a new attribute evilfactor<br/>
+
+<pre id='QUNACArU751'>class EvilAccount(Account):<br>    def __init__(self,name,balance,evilfactor):<br>        Account.__init__(self,name,balance) # Initialize Account<br>        self.evilfactor = evilfactor <br>    def inquiry(self):<br>        if random.randint(0,4) == 1:<br>            return self.balance * self.evilfactor<br>        else:<br>            return self.balance</pre>
+
+When a derived class defines __init__(), the __init__() methods of base classes are not automatically invoked.Therefore, it’s up to a derived class to perform the proper initialization of the base classes by calling their __init__() methods. In the previous example, this is shown in the statement that calls Account.__init__(). If a base class does not define __init__(), this step can be omitted. If you don’t know whether the base class defines __init__(), it is always safe to call it without any arguments because there is always a default implementation that simply does nothing.<br/>
+
+<pre id='QUNACAVdNoU'><br>    class MoreEvilAccount(EvilAccount): <br>        def deposit(self,amount):<br>            self.withdraw(5.00) # Subtract the "convenience" fee <br>            EvilAccount.deposit(self,amount) # Now, make deposit</pre>
+
+<br/>
+
+Better way : Because of the <i>super</i> keyword.<br/>
+
+<br/>
+
+<pre id='QUNACARU7qy'>class MoreEvilAccount(EvilAccount): <br>    def deposit(self,amount):<br>        self.withdraw(5.00) # Subtract convenience fee <br>        super(MoreEvilAccount,self).deposit(amount) # Now, make deposit</pre>
+
+<br/>
+
+Python supports multiple inheritance.This is specified by having a class list multiple base classes. For example, here are a collection of classes: <br/>
+
+<br/>
+
+<pre id='QUNACA3nDqz'><br>class DepositCharge(object): <br>    fee = 5.00<br>        def deposit_fee(self): <br>            self.withdraw(self.fee)<br><br>class WithdrawCharge(object):<br>    fee = 2.50 <br>    def withdraw_fee(self): <br>        self.withdraw(self.fee)<br># Using multiple inheritance<br><br>class MostEvilAccount(EvilAccount, DepositCharge, WithdrawCharge):<br>    def deposit(self,amt):<br>        self.deposit_fee() <br>        super(MostEvilAccount,self).deposit(amt)<br>    def withdraw(self,amt):<br>        self.withdraw_fee() <br>        super(MostEvilAcount,self).withdraw(amt)<br>        </pre>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<pre id='QUNACAL4tzV'># EOF</pre>
+
+<blockquote id='QUNACAvnyBm'>by Kishan, Ankur, Himan &amp; Chirag</blockquote>
+
+</body></html>
